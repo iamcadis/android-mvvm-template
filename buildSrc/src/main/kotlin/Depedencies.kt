@@ -16,9 +16,6 @@ private object Versions {
     const val coreKtx = "1.3.2"
     const val multidex = "2.0.1"
 
-    // Hilt
-    const val hiltViewModel = "1.0.0"
-
     // UI
     const val constraintLayout = "2.0.4"
     const val materialDesign = "1.3.0"
@@ -63,11 +60,9 @@ object Libs {
 
     object Network {
         const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp3}"
-        const val loggingInterceptor =
-            "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3}"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp3}"
         const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit2}"
-        const val retrofitConverter =
-            "com.squareup.retrofit2:converter-scalars:${Versions.retrofit2}"
+        const val retrofitConverter = "com.squareup.retrofit2:converter-scalars:${Versions.retrofit2}"
         const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
     }
 
