@@ -30,7 +30,6 @@ android {
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "BASE_API", BuildConfigFields.URL_DEVELOPMENT)
-            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -39,7 +38,6 @@ android {
         getByName("release") {
             buildConfigField("String", "BASE_API", BuildConfigFields.URL_PRODUCTION)
             isMinifyEnabled = true
-            isZipAlignEnabled = true
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
