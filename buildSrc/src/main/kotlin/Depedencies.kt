@@ -13,7 +13,10 @@ private object Versions {
 
     // Android
     const val appcompat = "1.2.0"
+    const val activityKtx = "1.2.0"
     const val coreKtx = "1.3.2"
+    const val fragmentKtx = "1.3.0"
+    const val lifecycle = "2.3.0"
     const val multidex = "2.0.1"
 
     // UI
@@ -44,7 +47,11 @@ object Libs {
 
     object Android {
         const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompat}"
+        const val activityKtx = "androidx.activity:activity-ktx:${Versions.activityKtx}"
         const val coreKtx = "androidx.core:core-ktx:${Versions.coreKtx}"
+        const val fragmentKtx = "androidx.fragment:fragment-ktx:${Versions.fragmentKtx}"
+        const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+        const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
         const val multidex = "androidx.multidex:multidex:${Versions.multidex}"
     }
 

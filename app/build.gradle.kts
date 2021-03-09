@@ -89,7 +89,11 @@ dependencies {
 
     // Android
     implementation(Libs.Android.appcompat)
+    implementation(Libs.Android.activityKtx)
     implementation(Libs.Android.coreKtx)
+    implementation(Libs.Android.fragmentKtx)
+    implementation(Libs.Android.lifecycleLiveData)
+    implementation(Libs.Android.lifecycleViewModel)
     implementation(Libs.Android.multidex)
 
     // Hilt + Dagger + ViewModel
