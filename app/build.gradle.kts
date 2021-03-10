@@ -93,6 +93,8 @@ dependencies {
     implementation(Libs.Android.lifecycleLiveData)
     implementation(Libs.Android.lifecycleViewModel)
     implementation(Libs.Android.multidex)
+    implementation(Libs.Android.navFragment)
+    implementation(Libs.Android.navUI)
 
     // Hilt + Dagger + ViewModel
     implementation(Libs.Hilt.dagger)
@@ -101,6 +103,7 @@ dependencies {
     // UI
     implementation(Libs.UI.constraintLayout)
     implementation(Libs.UI.materialDesign)
+    implementation(Libs.UI.coilImageLoader)
 
     // Network
     implementation(Libs.Network.okhttp)

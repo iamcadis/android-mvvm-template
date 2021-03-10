@@ -1,12 +1,21 @@
 package com.apps.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.apps.R
+import com.apps.databinding.ActivityMainBinding
+import com.apps.interfaces.OnLostConnection
+import com.apps.ui.base.BaseActivity
+import com.apps.ui.extra.LostConnectionSheet
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+@AndroidEntryPoint
+class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }), OnLostConnection {
+
+    override fun ActivityMainBinding.onCreate(savedInstanceState: Bundle?) {
+        val sheet = LostConnectionSheet.newInstance(null, this@MainActivity)
+        sheet.showNow(supportFragmentManager, sheet.javaClass.simpleName)
+    }
+
+    override fun onRetry(passingCode: String?) {
+
     }
 }

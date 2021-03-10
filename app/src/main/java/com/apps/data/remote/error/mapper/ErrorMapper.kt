@@ -3,16 +3,11 @@ package com.apps.data.remote.error.mapper
 import android.content.Context
 import com.apps.R
 import com.apps.constants.ErrorCode
-import dagger.hilt.android.qualifiers.ApplicationContext
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class ErrorMapper @Inject constructor(@ApplicationContext private val context: Context) :
-    ErrorMapperInterface {
+class ErrorMapper(private val context: Context?) : ErrorMapperInterface {
 
-    override fun getErrorString(errorId: Int): String {
-        return context.getString(errorId)
+    override fun getErrorString(errorId: Int): String? {
+        return context?.getString(errorId)
     }
 
     override val errorsMap: Map<Int, String?>

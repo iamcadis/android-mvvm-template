@@ -21,7 +21,6 @@ import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
-
 class RepositorySingleton @Inject constructor(
     private val retrofitInstance: RetrofitInstance,
     private val networkHelper: NetworkHelper

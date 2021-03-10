@@ -18,10 +18,12 @@ private object Versions {
     const val fragmentKtx = "1.3.0"
     const val lifecycle = "2.3.0"
     const val multidex = "2.0.1"
+    const val navigation = "2.3.3"
 
     // UI
     const val constraintLayout = "2.0.4"
     const val materialDesign = "1.3.0"
+    const val coilImageLoader = "1.1.1"
 
     // Network
     const val okhttp3 = "4.9.0"
@@ -53,6 +55,8 @@ object Libs {
         const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
         const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
         const val multidex = "androidx.multidex:multidex:${Versions.multidex}"
+        const val navFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+        const val navUI = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     }
 
     object Hilt {
@@ -63,6 +67,7 @@ object Libs {
     object UI {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
         const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
+        const val coilImageLoader = "io.coil-kt:coil:${Versions.coilImageLoader}"
     }
 
     object Network {

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">android-mvvm-template</string>
+    <string name="close">Close</string>
+    <string name="try_again">Try Again</string>
     <!-- Error message -->
     <string name="err_title">Oops!</string>
     <string name="err_network">Network error, unable to load data, please try again!</string>
