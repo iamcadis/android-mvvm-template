@@ -1,6 +1,7 @@
 package com.apps.data.remote
 
 import com.apps.constants.ErrorCode
+import com.apps.constants.PassingCode
 import com.apps.utils.JsonHelper
 import com.apps.utils.NetworkHelper
 import com.apps.utils.extensions.getJsonResponse
@@ -26,7 +27,8 @@ class RepositorySingleton @Inject constructor(
     private val networkHelper: NetworkHelper
 ) {
     suspend fun get(url: String,
-                    query: HashMap<String, String>? = null
+                    query: HashMap<String, String>? = null,
+                    passingCode: String? = null
     ): Flow<ResultWrapper<String>> {
         return flow {
             val optionsQuery = query ?: HashMap()
@@ -34,7 +36,7 @@ class RepositorySingleton @Inject constructor(
             emit(
                 when (val response = apiCall { service.get(url, optionsQuery) }) {
                     is String -> ResultWrapper.Success(data = response)
-                    else -> ResultWrapper.Error(url = url, errorCode = response as Int)
+                    else -> ResultWrapper.Error(passingCode = passingCode, errorCode = response as Int)
                 }
             )
         }.flowOn(Dispatchers.IO)
@@ -42,7 +44,8 @@ class RepositorySingleton @Inject constructor(
 
     suspend fun post(url: String,
                      data: Any,
-                     query: HashMap<String, String>? = null
+                     query: HashMap<String, String>? = null,
+                     passingCode: String? = null
     ): Flow<ResultWrapper<String>> {
         return flow {
             val optionsQuery = query ?: HashMap()
@@ -51,7 +54,7 @@ class RepositorySingleton @Inject constructor(
             emit(
                 when (val response = apiCall { service.post(url, dataInput, optionsQuery) }) {
                     is String -> ResultWrapper.Success(data = response)
-                    else -> ResultWrapper.Error(url = url, errorCode = response as Int)
+                    else -> ResultWrapper.Error(passingCode = passingCode, errorCode = response as Int)
                 }
             )
         }.flowOn(Dispatchers.IO)
@@ -59,7 +62,8 @@ class RepositorySingleton @Inject constructor(
 
     suspend fun put(url: String,
                     data: Any,
-                    query: HashMap<String, String>? = null
+                    query: HashMap<String, String>? = null,
+                    passingCode: String? = null
     ): Flow<ResultWrapper<String>> {
         return flow {
             val optionsQuery = query ?: HashMap()
@@ -68,19 +72,21 @@ class RepositorySingleton @Inject constructor(
             emit(
                     when (val response = apiCall { service.put(url, dataInput, optionsQuery) }) {
                         is String -> ResultWrapper.Success(data = response)
-                        else -> ResultWrapper.Error(url = url, errorCode = response as Int)
+                        else -> ResultWrapper.Error(passingCode = passingCode, errorCode = response as Int)
                     }
             )
         }.flowOn(Dispatchers.IO)
     }
 
-    suspend fun delete(url: String): Flow<ResultWrapper<String>> {
+    suspend fun delete(url: String,
+                       passingCode: String? = null
+    ): Flow<ResultWrapper<String>> {
         return flow {
             val service = retrofitInstance.create(RetrofitService::class.java)
             emit(
                 when (val response = apiCall { service.delete(url) }) {
                     is String -> ResultWrapper.Success(data = response)
-                    else -> ResultWrapper.Error(url = url, errorCode = response as Int)
+                    else -> ResultWrapper.Error(passingCode = passingCode, errorCode = response as Int)
                 }
             )
         }.flowOn(Dispatchers.IO)
@@ -91,7 +97,12 @@ class RepositorySingleton @Inject constructor(
         return flow {
 
             if (!networkHelper.isNetworkConnected) {
-                emit(ResultWrapper.Error(url = url, errorCode = ErrorCode.NO_INTERNET_CONNECTION))
+                emit(
+                        ResultWrapper.Error(
+                                passingCode = PassingCode.UPLOAD_IMAGE,
+                                errorCode = ErrorCode.NO_INTERNET_CONNECTION
+                        )
+                )
                 return@flow
             }
 
@@ -106,7 +117,10 @@ class RepositorySingleton @Inject constructor(
                     if (response.isSuccessful) {
                         ResultWrapper.Success(data = response.toString())
                     } else {
-                        ResultWrapper.Error(url = url, errorCode = response.code)
+                        ResultWrapper.Error(
+                                passingCode = PassingCode.UPLOAD_IMAGE,
+                                errorCode = response.code
+                        )
                     }
                 )
                 response.body?.close()
@@ -149,6 +163,6 @@ class RepositorySingleton @Inject constructor(
         private const val BODY_PARSER_JSON = "application/json; charset=UTF-8"
         private const val CONTENT_TYPE = "Content-Type"
         private const val MIME_TYPE_IMAGE = "image/jpg"
-        private const val MEDIA_TYPE_OCTET = ""
+        private const val MEDIA_TYPE_OCTET = "application/octet-stream"
     }
 }

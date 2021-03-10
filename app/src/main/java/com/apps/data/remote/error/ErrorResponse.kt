@@ -1,3 +1,3 @@
 package com.apps.data.remote.error
 
-data class ErrorResponse(val url: String, val code: Int)
+data class ErrorResponse(val passingCode: String?, val code: Int)
