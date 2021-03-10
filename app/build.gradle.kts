@@ -83,7 +83,7 @@ dependencies {
 
     // Kotlin
     implementation(Libs.Kotlin.stdlib)
-    implementation(Libs.Kotlin.coroutines)
+    implementation(Libs.Kotlin.coroutinesAndroid)
 
     // Android
     implementation(Libs.Android.appcompat)

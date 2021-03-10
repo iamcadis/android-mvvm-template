@@ -9,7 +9,7 @@ private object Versions {
     const val crashlytics = "2.5.1"
 
     // Kotlin Coroutines
-    const val coroutinesAndroid = "1.3.9"
+    const val coroutines = "1.4.3"
 
     // Android
     const val appcompat = "1.2.0"
@@ -42,7 +42,7 @@ object Libs {
 
     object Kotlin {
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
-        const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}"
+        const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     }
 
     object Android {
