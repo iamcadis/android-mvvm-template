@@ -12,13 +12,11 @@ interface RetrofitService {
 
     @POST("{url}")
     suspend fun post(@Path(value = "url", encoded = true) url: String,
-                     @Body dataInput: RequestBody,
-                     @QueryMap(encoded = true) query: HashMap<String, String>): Response<String>
+                     @Body dataInput: RequestBody): Response<String>
 
     @PUT("{url}")
     suspend fun put(@Path(value = "url", encoded = true) url: String,
-                    @Body dataInput: RequestBody,
-                    @QueryMap(encoded = true) query: HashMap<String, String>): Response<String>
+                    @Body dataInput: RequestBody): Response<String>
 
     @DELETE("{url}")
     suspend fun delete(@Path(value = "url", encoded = true) url: String): Response<String>

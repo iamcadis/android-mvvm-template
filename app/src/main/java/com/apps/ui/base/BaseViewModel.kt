@@ -10,8 +10,8 @@ import com.apps.utils.SingleLiveEvent
 abstract class BaseViewModel : ViewModel(), Observable {
 
     private val callbacks: PropertyChangeRegistry = PropertyChangeRegistry()
-    private val _errorLiveData = SingleLiveEvent<ErrorResponse>()
 
+    private val _errorLiveData = SingleLiveEvent<ErrorResponse>()
     val errorLiveData: LiveData<ErrorResponse>
         get() = _errorLiveData
 

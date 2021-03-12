@@ -2,6 +2,8 @@
     <string name="app_name">android-mvvm-template</string>
     <string name="close">Close</string>
     <string name="try_again">Try Again</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
     <!-- Error message -->
     <string name="err_title">Oops!</string>
     <string name="err_network">Network error, unable to load data, please try again!</string>
@@ -9,4 +11,13 @@
     <string name="err_token_expired">Token has expired, please login again</string>
     <string name="err_invalid_credentials">Username or password is wrong, please try again</string>
     <string name="err_forbidden_access">You don\'t have access rights</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>

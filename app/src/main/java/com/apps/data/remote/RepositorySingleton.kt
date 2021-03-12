@@ -43,15 +43,13 @@ class RepositorySingleton @Inject constructor(
 
     suspend fun post(url: String,
                      data: Any,
-                     query: HashMap<String, String>? = null,
                      passingCode: String? = null
     ): Flow<ResultWrapper<String>> {
         return flow {
-            val optionsQuery = query ?: HashMap()
             val service = retrofitInstance.create(RetrofitService::class.java)
             val dataInput = JsonHelper.toJson(data).toRequestBody(BODY_PARSER_JSON.toMediaTypeOrNull())
             emit(
-                when (val response = apiCall { service.post(url, dataInput, optionsQuery) }) {
+                when (val response = apiCall { service.post(url, dataInput) }) {
                     is String -> ResultWrapper.Success(data = response)
                     else -> ResultWrapper.Error(passingCode = passingCode, errorCode = response as Int)
                 }
@@ -61,15 +59,13 @@ class RepositorySingleton @Inject constructor(
 
     suspend fun put(url: String,
                     data: Any,
-                    query: HashMap<String, String>? = null,
                     passingCode: String? = null
     ): Flow<ResultWrapper<String>> {
         return flow {
-            val optionsQuery = query ?: HashMap()
             val service = retrofitInstance.create(RetrofitService::class.java)
             val dataInput = JsonHelper.toJson(data).toRequestBody(BODY_PARSER_JSON.toMediaTypeOrNull())
             emit(
-                    when (val response = apiCall { service.put(url, dataInput, optionsQuery) }) {
+                    when (val response = apiCall { service.put(url, dataInput) }) {
                         is String -> ResultWrapper.Success(data = response)
                         else -> ResultWrapper.Error(passingCode = passingCode, errorCode = response as Int)
                     }
