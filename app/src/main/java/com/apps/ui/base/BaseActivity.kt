@@ -26,14 +26,6 @@ abstract class BaseActivity<B : ViewBinding>(val viewBinder: (LayoutInflater) ->
         binding.onCreate(savedInstanceState)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> { onBackPressed() }
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager

@@ -7,5 +7,8 @@ data class Credential(
     var username: String,
 
     @Json(name = "password")
-    var password: String
+    var password: String,
+
+    @Json(name = "role")
+    var role: String = "MERCHANT"
 )

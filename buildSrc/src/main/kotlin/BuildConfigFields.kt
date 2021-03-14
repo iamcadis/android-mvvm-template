@@ -12,8 +12,8 @@ object BuildConfigFields {
     const val TARGET = 30
 
     // Url for WebServices
-    const val URL_DEVELOPMENT = "\"https://dev.example.com/\""
-    const val URL_PRODUCTION = "\"https://example.com/\""
+    const val URL_DEVELOPMENT = "\"https://dev.app.justgo.com.sg/api/\""
+    const val URL_PRODUCTION = "\"https://dev.app.justgo.com.sg/api/\""
 
     // Android Version
     const val VERSION_CODE = MAJOR * 10000 + MINOR * 1000 + PATCH * 100

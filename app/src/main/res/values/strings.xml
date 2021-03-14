@@ -11,13 +11,19 @@
     <string name="err_token_expired">Token has expired, please login again</string>
     <string name="err_invalid_credentials">Username or password is wrong, please try again</string>
     <string name="err_forbidden_access">You don\'t have access rights</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <!-- TextField error response -->
+    <string name="field_required">This field is required</string>
+    <string name="email_not_valid">Please enter a valid email address</string>
+    <string name="password_required_valid_format">Password must be at least 1 number, 1 lowercase letter, 1 uppercase letter, 1 symbol and minimal password length is 8</string>
+    <string name="contact_number_not_valid">Please enter a valid contact number</string>
+    <!-- Login page -->
+    <string name="login_title">Login to use apps</string>
+    <string name="login_caption">Welcome back! Login or signing up now.</string>
+    <string name="email_address_required">Email Address*</string>
+    <string name="password_required">Password*</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="login_using_fingerprint">Login using fingerprint</string>
+    <string name="create_account">Create Account</string>
+    <string name="login_fingerprint_title">Confirm using your fingerprint</string>
 </resources>

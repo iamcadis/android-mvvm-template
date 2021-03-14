@@ -27,7 +27,8 @@ abstract class BaseViewModel : ViewModel(), Observable {
         callbacks.notifyCallbacks(this, fieldId, null)
     }
 
-    fun setError(error: ErrorResponse) {
+    fun setError(error: ErrorResponse?) {
+        if (error == null) return
         _errorLiveData.value = error
     }
 }

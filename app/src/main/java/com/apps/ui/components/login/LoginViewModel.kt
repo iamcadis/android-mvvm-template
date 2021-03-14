@@ -10,6 +10,8 @@ import com.apps.data.dto.Credential
 import com.apps.data.remote.RepositorySingleton
 import com.apps.data.remote.ResultWrapper
 import com.apps.ui.base.BaseViewModel
+import com.apps.utils.extensions.isEmailValid
+import com.apps.utils.extensions.isPasswordValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.collect
@@ -31,7 +33,7 @@ class LoginViewModel @Inject constructor(
         get() = credential.username
         set(value) {
             credential.username = value
-            enableLogin = credential.username.isNotBlank() && credential.password.isNotBlank()
+            enableLogin = credential.username.isEmailValid && credential.password.isPasswordValid
             notifyPropertyChanged(BR.username)
             notifyPropertyChanged(BR.enableLogin)
         }
@@ -42,7 +44,7 @@ class LoginViewModel @Inject constructor(
         get() = credential.password
         set(value) {
             credential.password = value
-            enableLogin = credential.username.isNotBlank() && credential.password.isNotBlank()
+            enableLogin = credential.username.isEmailValid && credential.password.isPasswordValid
             notifyPropertyChanged(BR.password)
             notifyPropertyChanged(BR.enableLogin)
         }

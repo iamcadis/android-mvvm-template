@@ -1,5 +1,6 @@
 package com.apps.data.remote
 
+import android.util.Log
 import com.apps.constants.ErrorCode
 import com.apps.constants.PassingCode
 import com.apps.utils.JsonHelper
@@ -124,6 +125,7 @@ class RepositorySingleton @Inject constructor(
     }
 
     private suspend fun apiCall(responseCall: suspend () -> Response<*>): Any {
+        Log.e("TEST NETWORK", "IS CONNECTED = ${networkHelper.isNetworkConnected}")
         if (!networkHelper.isNetworkConnected) {
             retrofitInstance.cancelAllRequest()
             return ErrorCode.NO_INTERNET_CONNECTION
