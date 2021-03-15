@@ -26,4 +26,5 @@
     <string name="login_using_fingerprint">Login using fingerprint</string>
     <string name="create_account">Create Account</string>
     <string name="login_fingerprint_title">Confirm using your fingerprint</string>
+    <string name="finger_print_required">Please register your fingerprint in settings</string>
 </resources>

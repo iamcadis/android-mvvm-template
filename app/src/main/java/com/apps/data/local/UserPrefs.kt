@@ -17,6 +17,24 @@ class UserPrefs @Inject constructor(@ApplicationContext context : Context) {
             prefs.edit { putString(AUTH_TOKEN, value) }
         }
 
+    var username: String
+        get() = prefs.getString(USERNAME, "") ?: ""
+        set(value) {
+            prefs.edit { putString(USERNAME, value) }
+        }
+
+    var password: String
+        get() = prefs.getString(PASSWORD, "") ?: ""
+        set(value) {
+            prefs.edit { putString(PASSWORD, value) }
+        }
+
+    var role: String
+        get() = prefs.getString(ROLE, "") ?: ""
+        set(value) {
+            prefs.edit { putString(ROLE, value) }
+        }
+
     var currentUser: String?
         get() = prefs.getString(CURRENT_USER, null)
         set(value) {
@@ -31,5 +49,8 @@ class UserPrefs @Inject constructor(@ApplicationContext context : Context) {
         private const val SHARED_PREF_NAME = "DB::USER_PREFERENCES"
         private const val AUTH_TOKEN = "AUTH_TOKEN"
         private const val CURRENT_USER = "CURRENT_USER"
+        private const val USERNAME = "USERNAME"
+        private const val PASSWORD = "PASSWORD"
+        private const val ROLE = "ROLE"
     }
 }

@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.apps.BR
 import com.apps.constants.Url
 import com.apps.data.dto.Credential
+import com.apps.data.local.UserPrefs
 import com.apps.data.remote.RepositorySingleton
 import com.apps.data.remote.ResultWrapper
 import com.apps.ui.base.BaseViewModel
+import com.apps.utils.AesEncryption
 import com.apps.utils.extensions.isEmailValid
 import com.apps.utils.extensions.isPasswordValid
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: RepositorySingleton
+    private val repository: RepositorySingleton,
+    private val userPrefs: UserPrefs
 ) : BaseViewModel() {
 
     private val _loginLiveData = MutableLiveData<ResultWrapper<String>>()
@@ -60,6 +63,13 @@ class LoginViewModel @Inject constructor(
                     _loginLiveData.value = it
                 }
         }
+    }
+
+    fun setUserUsingFingerPrint() {
+        credential.username = userPrefs.username
+        credential.password = AesEncryption.decrypt(userPrefs.password) ?: ""
+        credential.role = userPrefs.role
+        this.login()
     }
 
 }

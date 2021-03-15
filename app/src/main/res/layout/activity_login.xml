@@ -104,19 +104,20 @@
             android:id="@+id/login_fingerprint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large"
             android:contentDescription="@string/login_using_fingerprint"
             app:backgroundTint="?attr/colorPrimary"
             app:srcCompat="@drawable/ic_fingerprint"
             app:tint="?attr/colorOnPrimary"
             app:layout_constraintTop_toTopOf="@id/login"
             app:layout_constraintBottom_toBottomOf="@id/login"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/login"/>
 
         <Button
             android:id="@+id/login"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
-            android:layout_marginEnd="@dimen/large"
             android:enabled="@{viewModel.enableLogin}"
             android:onClick="@{() -> viewModel.login()}"
             android:text="@string/sign_in"

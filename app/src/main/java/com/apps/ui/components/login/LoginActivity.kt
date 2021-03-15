@@ -1,7 +1,11 @@
 package com.apps.ui.components.login
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.apps.R
@@ -10,6 +14,7 @@ import com.apps.data.remote.ResultWrapper
 import com.apps.databinding.ActivityLoginBinding
 import com.apps.interfaces.OnLostConnection
 import com.apps.ui.base.BaseActivity
+import com.apps.utils.AesEncryption
 import com.apps.utils.extensions.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.Executor
@@ -24,6 +29,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
     private lateinit var executor: Executor
     private lateinit var biometricPrompt: BiometricPrompt
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
+    private lateinit var role: String
 
     override fun ActivityLoginBinding.onCreate(savedInstanceState: Bundle?) {
         val viewModel: LoginViewModel by viewModels()
@@ -33,7 +39,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
         observeData(binding.viewModel?.loginLiveData, ::handleResponseLogin)
         observeError(binding.viewModel?.errorLiveData, this@LoginActivity)
 
-        setLoginUsingBioMetric()
+        checkIsFingerPrintAvailable()
+        setLoginUsingFingerPrint()
     }
 
     override fun onRetry(passingCode: String?) {
@@ -46,6 +53,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
             is ResultWrapper.Success -> {
                 this.hideLoading()
                 userPrefs.authToken = res.data?.getJsonResponse(key = "token")
+                this.saveCredential()
                 this.backToHome()
             }
             is ResultWrapper.Error -> {
@@ -55,7 +63,27 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
         }
     }
 
-    private fun setLoginUsingBioMetric() {
+    private fun checkIsFingerPrintAvailable() {
+        val biometricManager = BiometricManager.from(this)
+        when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)) {
+            BiometricManager.BIOMETRIC_SUCCESS ->
+                binding.loginFingerprint.visibility = View.VISIBLE
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
+                binding.loginFingerprint.visibility = View.GONE
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
+                binding.loginFingerprint.visibility = View.GONE
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
+                binding.loginFingerprint.visibility = View.GONE
+            BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED ->
+                binding.loginFingerprint.visibility = View.GONE
+            BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED ->
+                binding.loginFingerprint.visibility = View.GONE
+            BiometricManager.BIOMETRIC_STATUS_UNKNOWN ->
+                binding.loginFingerprint.visibility = View.GONE
+        }
+    }
+
+    private fun setLoginUsingFingerPrint() {
         executor = ContextCompat.getMainExecutor(this)
         biometricPrompt = BiometricPrompt(this, executor,
             object : BiometricPrompt.AuthenticationCallback() {
@@ -63,17 +91,23 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
                 override fun onAuthenticationSucceeded(
                     result: BiometricPrompt.AuthenticationResult) {
                     super.onAuthenticationSucceeded(result)
-                    backToHome()
+                    binding.viewModel?.setUserUsingFingerPrint()
                 }
             })
 
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.login_fingerprint_title))
-            .setNegativeButtonText("Use password")
+            .setNegativeButtonText(getString(R.string.cancel))
             .build()
 
         binding.loginFingerprint.setOnClickListener {
             biometricPrompt.authenticate(promptInfo)
         }
+    }
+
+    private fun saveCredential() {
+        userPrefs.username = binding.viewModel?.username ?: ""
+        userPrefs.password = AesEncryption.encrypt(binding.viewModel?.password) ?: ""
+        userPrefs.role = role
     }
 }
