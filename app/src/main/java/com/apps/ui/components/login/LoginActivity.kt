@@ -52,8 +52,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
             is ResultWrapper.Loading -> this.showLoading()
             is ResultWrapper.Success -> {
                 this.hideLoading()
-                userPrefs.authToken = res.data?.getJsonResponse(key = "token")
-                this.saveCredential()
+                this.saveCredential(res.data)
                 this.backToHome()
             }
             is ResultWrapper.Error -> {
@@ -105,7 +104,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
         }
     }
 
-    private fun saveCredential() {
+    private fun saveCredential(data: String?) {
+        userPrefs.authToken = data?.getJsonResponse(key = "token")
         userPrefs.username = binding.viewModel?.username ?: ""
         userPrefs.password = AesEncryption.encrypt(binding.viewModel?.password) ?: ""
         userPrefs.role = role
