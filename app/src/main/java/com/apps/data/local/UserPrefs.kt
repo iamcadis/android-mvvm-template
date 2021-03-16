@@ -41,9 +41,11 @@ class UserPrefs @Inject constructor(@ApplicationContext context : Context) {
             prefs.edit { putString(CURRENT_USER, value) }
         }
 
-    fun clear() {
-        prefs.edit().clear().apply()
-    }
+    var isEnableLoginFingerPrint: Boolean
+        get() = prefs.getBoolean(IS_ENABLE_LOGIN_FINGERPRINT, false)
+        set(value) {
+            prefs.edit { putBoolean(IS_ENABLE_LOGIN_FINGERPRINT, value) }
+        }
 
     companion object {
         private const val SHARED_PREF_NAME = "DB::USER_PREFERENCES"
@@ -52,5 +54,6 @@ class UserPrefs @Inject constructor(@ApplicationContext context : Context) {
         private const val USERNAME = "USERNAME"
         private const val PASSWORD = "PASSWORD"
         private const val ROLE = "ROLE"
+        private const val IS_ENABLE_LOGIN_FINGERPRINT = "IS_ENABLE_LOGIN_FINGERPRINT"
     }
 }

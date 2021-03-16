@@ -14,11 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App">
         <activity
-            android:name=".ui.components.login.LoginActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.components.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.NoActionBar" />
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait"

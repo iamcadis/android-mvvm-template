@@ -55,6 +55,9 @@ class LoginViewModel @Inject constructor(
     @get:Bindable
     var enableLogin: Boolean = false
 
+    @get:Bindable
+    var showFingerPrint: Boolean = userPrefs.isEnableLoginFingerPrint
+
     fun login() {
         viewModelScope.launch {
             _loginLiveData.value = ResultWrapper.Loading()

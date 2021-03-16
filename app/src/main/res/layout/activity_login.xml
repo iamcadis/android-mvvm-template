@@ -5,6 +5,7 @@
     tools:context=".ui.components.login.LoginActivity">
 
     <data>
+        <import type="android.view.View"/>
         <import type="com.apps.constants.Validation" />
         <variable
             name="viewModel"
@@ -106,6 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large"
             android:contentDescription="@string/login_using_fingerprint"
+            android:visibility="@{viewModel.showFingerPrint ? View.VISIBLE : View.GONE}"
             app:backgroundTint="?attr/colorPrimary"
             app:srcCompat="@drawable/ic_fingerprint"
             app:tint="?attr/colorOnPrimary"
