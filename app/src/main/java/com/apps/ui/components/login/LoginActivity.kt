@@ -1,11 +1,7 @@
 package com.apps.ui.components.login
 
 import android.os.Bundle
-import android.view.View
 import androidx.activity.viewModels
-import androidx.biometric.BiometricManager
-import androidx.biometric.BiometricManager.Authenticators.BIOMETRIC_STRONG
-import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.apps.R
@@ -39,7 +35,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
         observeData(binding.viewModel?.loginLiveData, ::handleResponseLogin)
         observeError(binding.viewModel?.errorLiveData, this@LoginActivity)
 
-        checkIsFingerPrintAvailable()
         setLoginUsingFingerPrint()
     }
 
@@ -59,26 +54,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>({ ActivityLoginBinding.
                 this.hideLoading()
                 binding.viewModel?.setError(res.error)
             }
-        }
-    }
-
-    private fun checkIsFingerPrintAvailable() {
-        val biometricManager = BiometricManager.from(this)
-        when (biometricManager.canAuthenticate(BIOMETRIC_STRONG or DEVICE_CREDENTIAL)) {
-            BiometricManager.BIOMETRIC_SUCCESS ->
-                binding.loginFingerprint.visibility = View.VISIBLE
-            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE ->
-                binding.loginFingerprint.visibility = View.GONE
-            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE ->
-                binding.loginFingerprint.visibility = View.GONE
-            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED ->
-                binding.loginFingerprint.visibility = View.GONE
-            BiometricManager.BIOMETRIC_ERROR_SECURITY_UPDATE_REQUIRED ->
-                binding.loginFingerprint.visibility = View.GONE
-            BiometricManager.BIOMETRIC_ERROR_UNSUPPORTED ->
-                binding.loginFingerprint.visibility = View.GONE
-            BiometricManager.BIOMETRIC_STATUS_UNKNOWN ->
-                binding.loginFingerprint.visibility = View.GONE
         }
     }
 
